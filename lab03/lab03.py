@@ -23,7 +23,7 @@ def caesar(text, shift):
     return "".join(decrypted_text)
 
 
-def caesar_bruteforce(encoded_message):
+def hack_caesar(encoded_message):
     """
     Функція для злому шифру Цезаря методом перебору (брутфорс).
     Використовує частотний аналіз англійської мови для пошуку правильного зсуву.
@@ -69,5 +69,5 @@ if __name__ == "__main__":
     print(f"Розшифрований текст: {derypted_text}")
     
     # Пробуємо зламати зашифрований текст без знання ключа за допомогою частотного аналізу
-    derypted_text = caesar_bruteforce(encrypted_text)
-    print(f"Розшифрований текст (брутфорс): {derypted_text}")
+    derypted_text = hack_caesar(encrypted_text)
+    print(f"Розшифрований текст (хак): {derypted_text}")
