@@ -60,13 +60,13 @@ def hack_caesar(encoded_message):
 
 if __name__ == "__main__":
     text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    print(f"Оригінальний текст: {text}")
+    print(f"Оригінальний текст:        {text}")
     
     encrypted_text = caesar(text, 7)
-    print(f"Зашифрований текст: {encrypted_text}")
+    print(f"Зашифрований текст:        {encrypted_text}")
     
     derypted_text = caesar(encrypted_text, -7)
-    print(f"Розшифрований текст: {derypted_text}")
+    print(f"Розшифрований текст:       {derypted_text}")
     
     # Пробуємо зламати зашифрований текст без знання ключа за допомогою частотного аналізу
     derypted_text = hack_caesar(encrypted_text)
