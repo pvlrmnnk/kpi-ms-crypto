@@ -19,7 +19,6 @@ def apply_key_to_hex(cipher_hex, key):
 
 def hack_xor(msg1_hex, msg2_hex, msg3_hex):
     """
-    Зламує протокол, маючи три перехоплені hex-повідомлення.
     Виконує XOR між усіма трьома повідомленнями одночасно.
     """
     bytes1 = bytes.fromhex(msg1_hex)
