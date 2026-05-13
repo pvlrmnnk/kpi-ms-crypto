@@ -1,17 +1,39 @@
 def caesar(text, shift):
+    """
+    Функція для зсуву тексту (шифрування або розшифрування) за методом Цезаря.
+    Зсуває літери англійського алфавіту на задану кількість позицій.
+    """
+    # Список для зберігання оброблених символів
     decrypted_text = []
     
+    # Перебираємо кожен символ у вхідному тексті
     for char in text:
+        # Перевіряємо, чи є символ літерою англійського алфавіту
         if char.isalpha() and char.isascii():
+            # Визначаємо базовий код ASCII ('A' для великих літер, 'a' для малих)
             base = ord('A') if char.isupper() else ord('a')
+            
+            # Виконуємо зсув символу: 
+            # 1. Знаходимо позицію літери в алфавіті (ord(char) - base)
+            # 2. Віднімаємо зсув (- shift)
+            # 3. Беремо остачу від ділення на 26, щоб не вийти за межі алфавіту (% 26)
+            # 4. Повертаємося до кодів ASCII (+ base) та перетворюємо число назад у символ (chr)
             new_char = chr((ord(char) - base - shift) % 26 + base)
             decrypted_text.append(new_char)
         else:
+            # Якщо це не літера (пробіл, цифра, розділовий знак), залишаємо її без змін
             decrypted_text.append(char)
             
+    # Об'єднуємо список символів у єдиний рядок та повертаємо його
     return "".join(decrypted_text)
 
+
 def caesar_bruteforce(encoded_message):
+    """
+    Функція для злому шифру Цезаря методом перебору (брутфорс).
+    Використовує частотний аналіз англійської мови для пошуку правильного зсуву.
+    """
+    # Еталонні частоти літер в англійській мові (у відсотках)
     freqs = {
         'A': 8.08, 'B': 1.67, 'C': 3.18, 'D': 3.99, 'E': 12.56,
         'F': 2.17, 'G': 1.80, 'H': 5.27, 'I': 7.24, 'J': 0.14,
@@ -20,35 +42,52 @@ def caesar_bruteforce(encoded_message):
         'U': 2.79, 'V': 1.00, 'W': 1.89, 'X': 0.21, 'Y': 1.65, 'Z': 0.07
     }
 
+    # Змінні для зберігання найкращого результату
     best_score = -1
     best_message = ""
 
+    # Перебираємо всі 26 можливих варіантів зсуву
     for shift in range(26):
+        # Отримуємо варіант тексту для поточного зсуву
         candidate_message = caesar(encoded_message, shift)
         
+        # Початкова оцінка "осмисленості" для поточного варіанту тексту
         score = 0
+        
+        # Аналізуємо кожен символ у поточному варіанті тексту
         for char in candidate_message:
             if char.isalpha():
+                # Додаємо частоту літери до загальної оцінки тексту
+                # Тексти з правильними англійськими словами матимуть більше частих літер (E, T, A)
                 score += freqs[char.upper()]
                 
+        # Якщо поточний варіант набрав більше балів, ніж попередні
         if score > best_score:
+            # Оновлюємо найкращу оцінку та запам'ятовуємо цей варіант тексту
             best_score = score
             best_message = candidate_message
 
+    # Повертаємо текст, який отримав найвищу оцінку
     return best_message
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
+    # Тестовий рядок для перевірки роботи функцій
     text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-    print("Оригінальний текст:")
+    print("\nОригінальний текст:")
     print(text)
+    
+    # Застосовуємо зсув на 7 позицій (оскільки у функції caesar стоїть мінус, це буде зсув вліво)
     encrypted_text = caesar(text, 7)
-    print("Зашифрований текст:")
+    print("\nЗашифрований текст:")
     print(encrypted_text)
+    
+    # Розшифровуємо текст назад, використовуючи протилежний зсув (-7)
     derypted_text = caesar(encrypted_text, -7)
-    print("Розшифрований текст:")
-    print(derypted_text)
-    derypted_text = caesar_bruteforce(encrypted_text)
-    print("Розшифрований текст (брутфорс):")
+    print("\nРозшифрований текст:")
     print(derypted_text)
     
+    # Пробуємо зламати зашифрований текст без знання ключа за допомогою частотного аналізу
+    derypted_text = caesar_bruteforce(encrypted_text)
+    print("\nРозшифрований текст (брутфорс):")
+    print(derypted_text)
