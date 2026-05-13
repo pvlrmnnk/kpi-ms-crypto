@@ -59,19 +59,15 @@ def caesar_bruteforce(encoded_message):
 
 
 if __name__ == "__main__":
-    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-    print("\nОригінальний текст:")
-    print(text)
+    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    print(f"Оригінальний текст: {text}")
     
     encrypted_text = caesar(text, 7)
-    print("\nЗашифрований текст:")
-    print(encrypted_text)
+    print(f"Зашифрований текст: {encrypted_text}")
     
     derypted_text = caesar(encrypted_text, -7)
-    print("\nРозшифрований текст:")
-    print(derypted_text)
+    print(f"Розшифрований текст: {derypted_text}")
     
     # Пробуємо зламати зашифрований текст без знання ключа за допомогою частотного аналізу
     derypted_text = caesar_bruteforce(encrypted_text)
-    print("\nРозшифрований текст (брутфорс):")
-    print(derypted_text)
+    print(f"Розшифрований текст (брутфорс): {derypted_text}")
